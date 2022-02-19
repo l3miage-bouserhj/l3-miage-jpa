@@ -28,13 +28,23 @@ public class SubjectRepositoryImpl extends BaseRepositoryImpl implements Subject
     @Override
     public Subject findById(Long id) {
         // TODO
-        return null;
+        /*
+        Subject subject = entityManager.createNamedQuery("subject-by-id", Subject.class)
+        .setParameter("id", id)
+        .getSingleResult();
+        return subject;
+        */
+        // OR
+        return entityManager.find(Subject.class, id);
     }
 
     @Override
     public List<Subject> getAll() {
         // TODO
-        return null;
+        String jpql = "select s from Subject s";
+        List<Subject> subject = entityManager.createQuery(jpql, Subject.class)
+        .getResultList();
+        return subject;
     }
 
     @Override

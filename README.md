@@ -6,8 +6,6 @@ Vous avez deux scéance de TP pour en venir à bout, vous être libre de continu
 
 * java 11+
 * maven 3.6+
-* docker (optionel) une base de données locale
-* Accès Oracle (optionel) si vous souhaitez l'utiliser pour visualiser vos données.
 
 # Le modèle
 
@@ -35,6 +33,8 @@ Voici le modèle de données.
 ## Ce qui est déjà fait
 
 * **Le modèle est déjà codé sous forme de classes Java.** 
+
+  ⚠️⚠️⚠️️Vous n'avez à ajouter des champs, seulement des annotations. ⚠️⚠️⚠️
   
   `src/main/java` => `fr.uga.im2ag.l3.miage.db.model`
 * **Les classes repository existent et sont à completer** 
@@ -54,29 +54,34 @@ Le but est de :
 
 **Partout ou il a y un methode à implémenter il y a un TODO** 
 
-### le mapping
+### déroulé du TP
 1. Cloner ou télécharger ce projet : `git clone https://github.com/bordigoni/l3-miage-jpa.git`
-    * Pour ceux sont à l'aise avec github et ont un compte, vous pouvez forker et me donner accès à votre repository pour le rendu. Vous devrez alors mettre votre nom dans le README
+    * Pour ceux sont à l'aise avec github et ont un compte, vous pouvez forker et me donner accès à votre repository pour le rendu. **vous devrez aussi rendre le zip (contrainte Moodle)
 2. Dans un terminal, à la racine projet, lancez la commande `mvn clean install -DskipTests`
 3. Importer le projet dans Eclipse "Import Maven Project"
 4. Prenez le temps de regarder les classes et le test existant pour comprendre comment faire l'implémentation. Toutes les méthodes à implémenter sont présentes mais vides.
-5. Annoter les classes pour faire le mapping
+5. Annoter les classes pour faire le mapping et faire un test pour sauvegarder l'entité
     * Les classes sont déjà déclarées dans `persistence.xml`
     * Vous être libre dans le choix de la stratégie pour mapper les héritages.
     * Conseil : commentez les relations si besoin et les ajouter de nouveau une à une en les annotant avec `@OneToMany`, `@ManyToOne` etc. afin qu'elles deviennent persistantes.
+6. Faites le mapping dans l'ordre suivant (dépendances inverses)
+   * Subject
+   * Implémenter la méthode SubjectRepositoryImpl.findById()
+   * Exécuter `SubjectTest` (partiellement codé), le test devrait passer si le mapping fonctionne. 
+7. Procéder de même pour les classes suivantes dans l'ordre proposé ci-après (cette fois vous devez implémenter le test vous-même, utilisez la classe `Fixtures` pour créer des objets prêts à devenir persistant, les données qu'ils contiennent sont généré aléatoirement.)
+8. `Grade`
+9. `GraduationClass` : idem (commentez la relation `students` encore non mappé)
+10. Mapping d'héritage de `Person` + `Student` + `Teacher` (d'abord sans les relations)
 
-      Faites le mapping dans l'ordre suivant (dépendences inverse)
-        * Subject
-        * Grade
-        * GraduationClass (vous pouvez commenter la relation vers students dans un premier temps)
-        * Person
-        * Student
-        * Teacher
-6. Exécuter `SubjectTest` (partiellement codé), le test devrait passer si le mapping fonctionne.
+    A ce stage vous pouvez passer `null` au méthodes `Fixtures.createStudent(null)` & `Fixtures.createTeacher(null, null)` 
+11. Mapping des relations de la classe Student + adaptations des tests
+12. Mapping de la relation `GraduationClass.students`
+13. Mapping des relations de la classe Teacher + adaptations des tests
 
-   ⚠️ certaines erreurs dans le mapping ne feront pas nécessairement planter votre test, vérifier les logs, il ne doit plus y avoir d'erreur.
+    
+ ⚠️ certaines erreurs dans le mapping ne feront pas nécessairement planter votre test, vérifier les logs, il ne doit plus y avoir d'erreur.
 
-### Repository et tests
+### Repository et tests (pour les autres cas qu'une simple sauvegarde)
 Une fois votre mapping fait vous passez à l'implémentation des Repository (aussi connu sous le nom de DAO)
 
 Voici l'ordre dans lequel l'implémentation doit être réalisée pour optimiser les chances de succès :
@@ -94,8 +99,9 @@ Voici l'ordre dans lequel l'implémentation doit être réalisée pour optimiser
     1. Commitez la transaction pour executer les requêtes en base
     2. Pensez à appeler `entityManager.detach(...)` pour retirer les entités avant de les charger de nouveau
     3. Effectuer des assertions simples, mais suffisantes pour valider les opérations.
-* Utiliser la classe `Fixtures` pour créer des objets prêts à devenir persistant, les données qu'ils contiennent sont générées aléatoirement.
+* Utiliser la classe `Fixtures` pour créer des objets prêts à devenir persistant, les données qu'ils contiennent sont généré aléatoirement.
 * Sur l'ensemble de vos méthodes de test, vous devez appeler toutes les méthodes de votre repository.
+* Vous devez optionnellement tester les mises à jour
 2. Recommencez pour chaque Repository
 
 Good luck! 🍀
