@@ -1,6 +1,7 @@
 package fr.uga.im2ag.l3.miage.db.model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,13 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 // TODO ajouter une named query pour une des requêtes à faire dans le repository
 
 @Entity
 @NamedQuery(name="subject-by-id",
             query="select s from Subject s where s.id = :id")
-
+@Table(name = "Subject")
 public class Subject {
 
     @Id @GeneratedValue Long id;
@@ -24,7 +26,7 @@ public class Subject {
     private Integer points;
     private Float hours;
     private Date start;
-    @Column (name = "endDate")
+    @Column (name = "end_date")
     private Date end;
 
     public Long getId() {
@@ -79,5 +81,17 @@ public class Subject {
     public Subject setEnd(Date end) {
         this.end = end;
         return this;
+    }
+
+    // Ajout des méthodes equals() et haschCade() (étant obligatoires, adder() et toString() étant optionnelles) 
+
+    @Override
+    public boolean equals(Object other) {
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash();
     }
 }

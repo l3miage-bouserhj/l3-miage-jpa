@@ -21,13 +21,33 @@ public class GradeRepositoryImpl extends BaseRepositoryImpl implements GradeRepo
     @Override
     public List<Grade> findHighestGrades(int limit) {
         // TODO
-        return null;
+        String jpql = "select g from Grade g order by g.value DESC";
+        List<Grade> highestGrades = entityManager.createQuery(jpql, Grade.class)
+        .setMaxResults(limit)
+        .getResultList();
+        return highestGrades;
+        /* ou bien
+        return entityManager.createNamedQuery("findHighestGrades", Grade.class)
+                .setMaxResults(limit)
+                .getResultList();
+        */
     }
 
     @Override
     public List<Grade> findHighestGradesBySubject(int limit, Subject subject) {
         // TODO
-        return null;
+        String jpql = "select g from Grade g where g.subject = :subject order by g.value DESC";
+        List<Grade> highestGradesBySubject = entityManager.createQuery(jpql, Grade.class)
+        .setMaxResults(limit)
+        .setParameter("subject", subject)
+        .getResultList();
+        return highestGradesBySubject;
+        /* ou bien
+        return entityManager.createNamedQuery("findHighestGradesBySubject", Grade.class)
+                .setMaxResults(limit)
+                .setParameter("subject", subject)
+                .getResultList();
+        */
     }
 
     @Override
@@ -42,12 +62,15 @@ public class GradeRepositoryImpl extends BaseRepositoryImpl implements GradeRepo
 
     @Override
     public Grade findById(Long id) {
-        return null;
+        return entityManager.find(Grade.class, id);
     }
 
     @Override
     public List<Grade> getAll() {
         // TODO
-        return null;
+        String jpql = "select g from Grade g";
+        List<Grade> allGrades = entityManager.createQuery(jpql, Grade.class)
+        .getResultList();
+        return allGrades;
     }
 }

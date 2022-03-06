@@ -21,7 +21,11 @@ public class TeacherRepositoryImpl extends BaseRepositoryImpl implements Teacher
     @Override
     public Teacher findHeadingGraduationClassByYearAndName(Integer year, String name) {
         // TODO
-        return null;
+
+        return entityManager.createQuery("teachHeadingGradClassByYearAndName", Teacher.class)
+                .setParameter("year", year)
+                .setParameter("name", name)
+                .getSingleResult();
     }
 
     @Override
@@ -39,12 +43,15 @@ public class TeacherRepositoryImpl extends BaseRepositoryImpl implements Teacher
     @Override
     public Teacher findById(Long id) {
         // TODO
-        return null;
+
+        return entityManager.find(Teacher.class, id);
     }
 
     @Override
     public List<Teacher> getAll() {
         // TODO
-        return null;
+
+        return entityManager.createQuery("select t from Teacher t", Teacher.class)
+                .getResultList();
     }
 }

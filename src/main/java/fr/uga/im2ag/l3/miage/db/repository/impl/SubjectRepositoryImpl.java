@@ -50,6 +50,10 @@ public class SubjectRepositoryImpl extends BaseRepositoryImpl implements Subject
     @Override
     public Collection<Teacher> findTeachers(Long id) {
         // TODO
-        return null;
+        String jpql = "select t from Teacher t join t.teaching s where s.id = :id";
+        Collection<Teacher> teachers = entityManager.createQuery(jpql, Teacher.class)
+                .setParameter("id", id)
+                .getResultList();
+        return teachers;
     }
 }

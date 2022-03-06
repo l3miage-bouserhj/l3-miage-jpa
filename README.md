@@ -1,3 +1,10 @@
+# Binôme
+
+BOU SERHAL Jean
+CRIVOI Dmitrii
+
+* Section Commentaires en bas du README
+
 # TP JPA
 
 Vous avez deux scéance de TP pour en venir à bout, vous être libre de continuer chez vous.
@@ -43,7 +50,7 @@ Voici le modèle de données.
 * **Les classes de tests existent et sont à completer** 
 
   `src/test/java` =>`fr.uga.im2ag.l3.miage.db.repository`
-  
+
 
 ## Ce que vous devez faire
 
@@ -92,7 +99,7 @@ Voici l'ordre dans lequel l'implémentation doit être réalisée pour optimiser
 * StudentRepositoryImpl + Test
 * TeacherRepositoryImpl + Test
 
-1. Implémeter un repository
+1. Implémenter un repository
 * Implementer une classe `*RepositoryImpl`
 * Implementer les tests du Repository (une méthode de test par méthode de Repository).
   Quelques conseils :
@@ -120,5 +127,8 @@ C'est-à-dire que vous ne devez pas ajouter de dépendances dans `pom.xml`, vous
 
 ## Commentaires
 
-Section en option si vous souhaitez justifier certains de vos choix dans votre implémentation. 
+Toutes les méthodes ont été implémentées, mais pas tous les tests.
 
+Les tests qui ne passaient pas chez moi :
+- shouldFindStudentHavingGradeAverageAbove() : IllegalArgumentException: Parameter value [16.5] did not match expected type [java.lang.Double (n/a)]
+- shouldFindHeadingGraduationClassByYearAndName() : 
