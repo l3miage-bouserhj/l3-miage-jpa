@@ -128,7 +128,7 @@ C'est-à-dire que vous ne devez pas ajouter de dépendances dans `pom.xml`, vous
 
 ## Commentaires
 
-Toutes les méthodes ont été implémentées, mais pas tous les tests.
+ERRATUM Toutes les méthodes et tous les tests ont été implémentés.
 
 Les tests qui ne passaient pas chez moi :
 - shouldFindStudentHavingGradeAverageAbove() : IllegalArgumentException: Parameter value [16.5] did not match expected type [java.lang.Double (n/a)]
